@@ -33,17 +33,37 @@ namespace Aula08Estoque
 
         }
 
+        bool listaEstaVazia()
+        {
+            if(produtoNome.Count() > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         void verProdutos(bool primeiro)
         {
             string nome;
             int quantidade;
+
+            if (listaEstaVazia() == true)
+            {
+                MessageBox.Show("Você não pode ver a lista ainda...");
+                return;
+            }
+            
+
 
             if (primeiro == true)
             {
                 nome = produtoNome[0];
                 quantidade = produtoQuantidade[0];
             }
-            else
+            else // ou usa o return
             {
                 nome = produtoNome [produtoNome.Count() - 1];
                 quantidade = produtoQuantidade[produtoQuantidade.Count() - 1];
@@ -52,11 +72,18 @@ namespace Aula08Estoque
             MessageBox.Show($"Nome: {nome}, Quantidade : {quantidade}");
         }
 
-        void RemovePrimeiroNome()
+        void RemoveProduto()
         {
-            produtoNome.RemoveAt(0);
-            produtoQuantidade.RemoveAt(0);
-            update();
+            if (listaEstaVazia() == true)
+            {
+                MessageBox.Show("Você não pode remover");
+            }
+            else
+            {
+                produtoNome.RemoveAt(0);
+                produtoQuantidade.RemoveAt(0);
+                update();
+            }
         }
 
         // ----------------------- -------------------------------------- //
@@ -86,7 +113,7 @@ namespace Aula08Estoque
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            RemovePrimeiroNome();
+            RemoveProduto();
         }
     }
 }
